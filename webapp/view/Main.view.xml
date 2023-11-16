@@ -1,0 +1,128 @@
+<mvc:View controllerName="mocktest.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+	xmlns:c="sap.ui.core">
+    <Page id="page" title="{i18n>title}">
+        <content>
+			<List id="uList"
+			headerText="Users"
+			headerLevel="H2"
+			items="{
+				path: '/Users'
+			}" >
+				<items>
+			<StandardListItem
+				title="{Fullname}" />
+		</items>
+		</List>
+		  <Table id="idPersonsTable" mode="SingleSelectMaster" selectionChange="onSelectionChange" items="{
+                path: '/Users',
+                parameters: {
+                    $ownRequest: false,
+                    $select: ['Fullname','Jobtype','Streetadress','avatar'],
+                    $filter: 'Fullname ge \'M\'',
+                    $orderby: 'Jobtype asc',
+                    $expand: { to_Products: { $select: ['Title', 'Description']}}
+                },
+                sorter: {
+                    path: 'Jobtype'
+                } }">
+              
+            <headerToolbar>
+                <OverflowToolbar>
+                    <content>
+                        <Title text="Users" level="H2"/>
+                        <ToolbarSpacer />
+                        <ComboBox id="idPopinLayout"
+                            placeholder="Popin layout options"
+                            change="onPopinLayoutChanged">
+                            <items>
+                                <c:Item  text="Block"
+                                    key="Block"/>
+                                <c:ListItem  text="Grid Large"
+                                    key="GridLarge"/>
+                                <c:Item  text="Grid Small"
+                                    key="GridSmall"/>
+                            </items>
+                        </ComboBox>
+                        <Label text="Sticky options:" />
+                        <CheckBox text="ColumnHeaders"
+                            select="onSelect"/>
+                        <CheckBox text="HeaderToolbar"
+                            select="onSelect"/>
+                        <CheckBox text="InfoToolbar"
+                            select="onSelect"/>
+                        <ToggleButton id="toggleInfoToolbar"
+                            text="Hide/Show InfoToolbar"
+                            press="onToggleInfoToolbar" />
+                            <Button id="sortBtnUsers" text="Sort" press="onSortUsers" />
+                    </content>
+                </OverflowToolbar>
+		    </headerToolbar>
+		<infoToolbar>
+			<OverflowToolbar>
+				<Label text="Showing user data"/>
+                 <ToolbarSpacer />
+                <Button id="sortBtnUsers2" text="Sort" press="onSortUsers" />
+			</OverflowToolbar>
+		</infoToolbar>
+                <columns>
+                    <Column id="__column0" minScreenWidth="Desktop">
+                        <header>
+                            <Label text="ID" id="__label0" />
+                        </header>
+                    </Column>
+                    <Column id="__column1" minScreenWidth="XLarge" demandPopin="true">
+                        <header>
+                            <Label text="Full Name" id="__label1" />
+                        </header>
+                    </Column>
+                    <Column id="__column2" demandPopin="true">
+                        <header>
+                            <Label text="Job" id="__label2" />
+                        </header>
+                    </Column>
+                    <Column id="__column3" minScreenWidth="Large" demandPopin="true">
+                        <header>
+                            <Label text="Adresse" id="__label3" />
+                        </header>
+                    </Column>
+                    <!-- <Column id="__column4">
+                        <header>
+                            <Label text="Profileinfo" id="__label4" />
+                        </header>
+                    </Column> -->
+                    <Column id="__column5">
+                        <header>
+                            <Label text="Zip Code" id="__label5" />
+                        </header>
+                    </Column> 
+                    <Column id="__column6" minScreenWidth="XXLarge" demandPopin="true">
+                        <header>
+                            <Label text="Profile image" id="__label6" />
+                        </header>
+                    </Column>
+                                        <Column id="__column7">
+                        <header>
+                            <Label text="Maybe?" id="__label7" />
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="__item0">
+                        <cells>
+                            <Text text="{Id}" id="__text3" />
+                            <Text text="{Fullname}" id="__text4" />
+                            <Text text="{Jobtype}" id="__text5" />
+                            <Text text="{Streetaddress}" id="__text6" />
+                            <!-- <Text text="{Profileinfo}" id="__text7" /> -->
+                            <Text text="{Zipcode}" id="__text8" />                            
+                            <Image src="{avatar}" id="__text9" />
+                            <Text text="{= ${Maybe} ? 'PRESENT' : 'MISSING'}" id="__text10" />    
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+			</content>
+    </Page>
+</mvc:View>
